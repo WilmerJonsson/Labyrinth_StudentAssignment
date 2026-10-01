@@ -1,15 +1,23 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class PathfindingAlgorithm
 {
     // TODO: Implement the pathfinding assignment here.
     // Find the lowest-cost path from start to goal using the map dimensions, wall costs and directed jumps exposed by IMapData.
+
     public static List<Vector2Int> FindShortestPath(Vector2Int start, Vector2Int goal, IMapData mapData)
     {
         // Most of your solution should be implemented in this method.
+        Graph graph = new Graph(mapData);
 
-        Debug.LogWarning("FindShortestPath is not implemented.");
+        int startIndex = start.y * mapData.Width + start.x;
+        int goalIndex = goal.y * mapData.Width + goal.x;
+
+
+
+        //Debug.LogWarning("FindShortestPath is not implemented.");
         return null;
     }
 

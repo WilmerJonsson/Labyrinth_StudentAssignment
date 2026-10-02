@@ -1,6 +1,8 @@
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.Experimental.AI;
 
-public class BreadthFirstSearch : MonoBehaviour
+public class BreadthFirstSearch
 {
     private bool[] marked;
     private int[] edgeTo;
@@ -34,5 +36,25 @@ public class BreadthFirstSearch : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool hasPathTo(int v)
+    {
+        return marked[v];
+    }
+
+    public IEnumerable<int> PathTo(int v)
+    {
+        if (!hasPathTo(v))
+            return null;
+
+        Stack<int> path = new Stack<int>();
+        for (int x = v; x != s; x = edgeTo[x])
+        {
+            path.Push(x);
+        }       
+
+        path.Pop();
+        return path;
     }
 }

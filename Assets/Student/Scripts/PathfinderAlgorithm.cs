@@ -15,10 +15,26 @@ public static class PathfindingAlgorithm
         int startIndex = start.y * mapData.Width + start.x;
         int goalIndex = goal.y * mapData.Width + goal.x;
 
+        BreadthFirstSearch breadthFirstSearch = new BreadthFirstSearch(graph,startIndex);
 
+        IEnumerable<int> indexPath = breadthFirstSearch.PathTo(goalIndex);
 
-        //Debug.LogWarning("FindShortestPath is not implemented.");
-        return null;
+        if (indexPath == null)
+            return null;
+
+        List<Vector2Int> path = new List<Vector2Int>();
+
+        foreach (int index in indexPath)
+        {
+            int x = index % mapData.Width;
+            int y = index / mapData.Width;
+
+            Vector2Int position = new Vector2Int(x, y);
+
+            path.Add(position);
+        }
+
+        return path;
     }
 
     public static bool IsMovementBlocked(Vector2Int from, Vector2Int to, IMapData mapData)

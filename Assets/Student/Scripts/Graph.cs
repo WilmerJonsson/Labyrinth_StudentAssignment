@@ -14,6 +14,12 @@ public class Graph
         vertices = mapdata.Width * mapdata.Height;
         edges = 0;
         adjacencyList = new List<int>[vertices];
+
+        for (int i = 0; i < vertices; i++)
+        {
+            adjacencyList[i] = new List<int>();
+        }
+
         Vector2Int[] directions = new Vector2Int[] { Vector2Int.up, Vector2Int.down, Vector2Int.right, Vector2Int.left };
 
         for (int x = 0; x < mapdata.Width; x++)

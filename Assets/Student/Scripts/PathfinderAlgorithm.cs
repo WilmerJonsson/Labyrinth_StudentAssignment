@@ -10,29 +10,43 @@ public static class PathfindingAlgorithm
     public static List<Vector2Int> FindShortestPath(Vector2Int start, Vector2Int goal, IMapData mapData)
     {
         // Most of your solution should be implemented in this method.
-        Graph graph = new Graph(mapData);
+
+        //Graph graph = new Graph(mapData);
+        EdgeWeightedDigraph graph = new EdgeWeightedDigraph(mapData);
 
         int startIndex = start.y * mapData.Width + start.x;
         int goalIndex = goal.y * mapData.Width + goal.x;
 
-        BreadthFirstSearch breadthFirstSearch = new BreadthFirstSearch(graph,startIndex);
+        //BreadthFirstSearch breadthFirstSearch = new BreadthFirstSearch(graph,startIndex);
+        DijkstrasAlgorithm dijkstrasAlgorithm = new DijkstrasAlgorithm(graph,startIndex);
 
-        IEnumerable<int> indexPath = breadthFirstSearch.PathTo(goalIndex);
+        //IEnumerable<int> indexPath = breadthFirstSearch.PathTo(goalIndex);
+        IEnumerable<DirectedEdge> indexPath = dijkstrasAlgorithm.PathTo(goalIndex);
 
         if (indexPath == null)
             return null;
 
         List<Vector2Int> path = new List<Vector2Int>();
 
-        foreach (int index in indexPath)
+        foreach (DirectedEdge edge in indexPath)
         {
-            int x = index % mapData.Width;
-            int y = index / mapData.Width;
+            int x = edge.To() % mapData.Width;
+            int y = edge.To() / mapData.Width;
 
             Vector2Int position = new Vector2Int(x, y);
 
             path.Add(position);
         }
+
+        //foreach (int index in indexPath)
+        //{
+        //    int x = index % mapData.Width;
+        //    int y = index / mapData.Width;
+
+        //    Vector2Int position = new Vector2Int(x, y);
+
+        //    path.Add(position);
+        //}
 
         return path;
     }

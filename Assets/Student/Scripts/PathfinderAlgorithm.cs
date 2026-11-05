@@ -21,32 +21,33 @@ public static class PathfindingAlgorithm
         DijkstrasAlgorithm dijkstrasAlgorithm = new DijkstrasAlgorithm(graph,startIndex);
 
         //IEnumerable<int> indexPath = breadthFirstSearch.PathTo(goalIndex);
-        IEnumerable<DirectedEdge> indexPath = dijkstrasAlgorithm.PathTo(goalIndex);
+        IEnumerable<int> indexPath = dijkstrasAlgorithm.PathTo(goalIndex);
 
         if (indexPath == null)
             return null;
 
         List<Vector2Int> path = new List<Vector2Int>();
 
-        foreach (DirectedEdge edge in indexPath)
-        {
-            int x = edge.To() % mapData.Width;
-            int y = edge.To() / mapData.Width;
-
-            Vector2Int position = new Vector2Int(x, y);
-
-            path.Add(position);
-        }
-
-        //foreach (int index in indexPath)
+        //foreach (DirectedEdge edge in indexPath)
         //{
-        //    int x = index % mapData.Width;
-        //    int y = index / mapData.Width;
+        //    int x = edge.To() % mapData.Width;
+        //    int y = edge.To() / mapData.Width;
 
         //    Vector2Int position = new Vector2Int(x, y);
 
         //    path.Add(position);
         //}
+
+
+        foreach (int index in indexPath)
+        {
+            int x = index % mapData.Width;
+            int y = index / mapData.Width;
+
+            Vector2Int position = new Vector2Int(x, y);
+
+            path.Add(position);
+        }
 
         return path;
     }

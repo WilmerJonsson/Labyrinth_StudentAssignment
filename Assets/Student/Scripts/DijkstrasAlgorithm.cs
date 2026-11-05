@@ -8,8 +8,11 @@ public class DijkstrasAlgorithm
     private double[] distTo;
     private IndexMinPQ<double> pq;
 
+    int source;
+
     public DijkstrasAlgorithm(EdgeWeightedDigraph G, int s)
     {
+        source = s;
         edgeTo = new DirectedEdge[G.GetVertices()];
         distTo = new double[G.GetVertices()];
 
@@ -53,26 +56,41 @@ public class DijkstrasAlgorithm
         }
     }
 
-    public double DistTo(int v)
-    {
-        return distTo[v];
-    }
-
     public bool hasPathTo(int v)
     {
         return !(distTo[v] == double.PositiveInfinity);
     }
 
-    public IEnumerable<DirectedEdge> PathTo(int v)
+    //public IEnumerable<DirectedEdge> PathToOld(int v)
+    //{
+    //    if (!hasPathTo(v))
+    //        return null;
+
+    //    Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+
+    //    for(DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.From()])
+    //    {
+    //        path.Push(e);
+    //    }
+
+    //    return path;
+    //}
+
+    public IEnumerable<int> PathTo(int v)
     {
         if (!hasPathTo(v))
             return null;
 
-        Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+        Stack<int> path = new Stack<int>();
 
-        for(DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.From()])
+        int current = v;
+        path.Push(current);
+
+        while (current != source )
         {
-            path.Push(e);
+            DirectedEdge edge = edgeTo[current];
+            current = edge.From();
+            path.Push(current);
         }
 
         return path;

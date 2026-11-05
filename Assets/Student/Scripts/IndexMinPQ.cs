@@ -54,30 +54,6 @@ public class IndexMinPQ<T>
         validateIndex(i);
         return qp[i] != -1;
     }
-
-    public void Delete(int i)
-    {
-        validateIndex(i);
-        if (!Contains(i)) throw new ArgumentException("index is not in the priority queue");
-        int index = qp[i];
-        Exch(index, n--);
-        Swim(index);
-        Sink(index);
-        keys[i] = default(T);
-        qp[i] = -1;
-    }
-    public T MinKey()
-    {
-        if (n == 0) throw new ArgumentException("Priority queue underflow");
-        return keys[pq[1]];
-    }
-
-    public int MinIndex()
-    {
-        if (n == 0) throw new ArgumentException("Priority queue underflow");
-        return pq[1];
-    }
-
     public int DelMin()
     {
         if (n == 0) throw new ArgumentException("Priority queue underflow");
@@ -93,11 +69,6 @@ public class IndexMinPQ<T>
     public bool IsEmpty()
     {
         return n == 0;
-    }
-
-    public int Size()
-    {
-        return n;
     }
 
     private void Swim(int k)
@@ -137,13 +108,6 @@ public class IndexMinPQ<T>
         pq[j] = swap;
         qp[pq[i]] = i;
         qp[pq[j]] = j;
-    }
-
-    public T keyOf(int i)
-    {
-        validateIndex(i);
-        if (!Contains(i)) throw new ArgumentException("index is not in the priority queue");
-        else return keys[i];
     }
     private bool validateIndex(int i)
     {

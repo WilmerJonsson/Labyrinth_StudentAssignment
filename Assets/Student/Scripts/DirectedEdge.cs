@@ -33,10 +33,5 @@ public class DirectedEdge
         return W;
     }
 
-    public string toString()
-    {
-        return string.Format("%d->%d % .2f", v, w, weight);
-    }
-
 
 }
